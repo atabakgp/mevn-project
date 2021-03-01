@@ -30,7 +30,7 @@ export default {
       const payload = {
         router: this.$router
       }
-      this.$store.dispatch('userLogout',payload);
+      this.$store.dispatch('logout',payload);
     }
   }
 }

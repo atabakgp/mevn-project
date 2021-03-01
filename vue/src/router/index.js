@@ -44,9 +44,16 @@ const router = new VueRouter({
 
 
 router.beforeEach((to, from, next) => {
-  if(!Store.getters.isAuth) {
-    if(to.name!=='Login' && to.name!=='Signup')
-    Store.dispatch('userCheckAuth')
+  const auth = Store.getters.isAuth
+  if(!auth) {
+    if(to.name!=='Login' && to.name!=='Signup') {
+      Store.dispatch('userCheckAuth', router)
+    }
+  }
+  if(auth) {
+    if(to.name=='Login' || to.name=='Signup') {
+      next('/')
+    }
   }
   next()
 })

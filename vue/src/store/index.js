@@ -9,7 +9,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     userCheckAuth: false,
-    Loading: false,
     validationErrors: {}
   },
   mutations: {
@@ -33,9 +32,12 @@ export default new Vuex.Store({
             commit('responseError', errors);
           }
           if(user) {
-            let router = payload.router;
-            router.push({path: '/'});
             commit('userCheckAuth',true);
+            const unwatch = this.watch((state,getters)=>{
+              let router = payload.router;
+              router.push({path: '/'});
+            });
+            unwatch();
           }
         })
         .catch(function (error) {
@@ -54,16 +56,19 @@ export default new Vuex.Store({
             commit('responseError', errors);
           }
           if(user) {
-            let router = payload.router;
-            router.push({path: '/'});
             commit('userCheckAuth',true);
+            const unwatch = this.watch((state,getters)=>{
+              let router = payload.router;
+              router.push({path: '/'});
+            });
+            unwatch()
           }
         })
         .catch(function (error) {
           console.log('error',error);
         })
       },
-    userLogout({commit},payload) {
+    logout({commit},payload) {
       axios
         .get('http://localhost:3000/users/logout', {
           withCredentials: true
@@ -86,8 +91,10 @@ export default new Vuex.Store({
           commit('userCheckAuth',true);
         })
         .catch(function (error) {
-          // let router = payload.router;
-          // router.push('/login');
+          console.log(payload)
+          let router = payload;
+          router.push('/login');
+          console.log(error)
           commit('userCheckAuth',false);
 
         })
