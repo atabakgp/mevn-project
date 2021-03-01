@@ -42,4 +42,12 @@ const router = new VueRouter({
   routes
 })
 
+
+router.beforeEach((to, from, next) => {
+  if(!Store.getters.isAuth) {
+    if(to.name!=='Login' && to.name!=='Signup')
+    Store.dispatch('userCheckAuth')
+  }
+  next()
+})
 export default router

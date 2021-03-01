@@ -9,6 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     userCheckAuth: false,
+    Loading: false,
     validationErrors: {}
   },
   mutations: {
@@ -26,7 +27,6 @@ export default new Vuex.Store({
           withCredentials: true
         })
         .then((response)=> {
-          console.log(response.data);
           const errors = response.data.errors;
           const user = response.data.user;
           if(errors) {
@@ -75,8 +75,24 @@ export default new Vuex.Store({
           .catch(error=>{
             console.log(error);
           })
-        }
-      },
+        },
+      userCheckAuth({commit}, payload) {
+        axios
+        .get('http://localhost:3000/users/checkToken', {
+          withCredentials: true
+        })
+        .then((response)=> {
+          console.log(response.status)
+          commit('userCheckAuth',true);
+        })
+        .catch(function (error) {
+          // let router = payload.router;
+          // router.push('/login');
+          commit('userCheckAuth',false);
+
+        })
+      }  
+    },
     getters: {
       isAuth: state => {
         return !!state.userCheckAuth

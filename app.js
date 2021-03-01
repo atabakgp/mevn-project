@@ -4,9 +4,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cors = require('cors');
-const csurf = require('csurf')
 
-const requireAuth = require('./middleware/authMiddleware');
 const corsOptions = {
   credentials: true,
   origin: true
@@ -28,12 +26,6 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use('/users', authRouter);
 app.use('/', profileRouter);
-
-app.all('*', function (req, res) {
-  res.cookie('XSRF-TOKEN', req.csrfToken())
-  res.render('index')
-})
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

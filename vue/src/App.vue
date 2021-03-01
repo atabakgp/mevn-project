@@ -13,17 +13,5 @@ export default {
   components: {
     Header,
   },
-   mounted() {
-      axios
-        .get('http://localhost:3000/profile', {
-          withCredentials: true
-        })
-        .then((response)=> {
-          console.log(response)
-        })
-        .catch(function (error) {
-          console.log('error',error);
-        })
-    }
 };
 </script>

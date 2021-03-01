@@ -148,8 +148,14 @@ const userLogout = (req, res) => {
   res.json({login: false})
 }
 
+// check token
+const checkToken = (req,res) => {
+  res.status(200).send('Succuess');
+}
+
 module.exports = {
   userRegister,
   userLogin,
   userLogout,
+  checkToken
 }

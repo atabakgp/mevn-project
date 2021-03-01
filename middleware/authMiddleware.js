@@ -6,16 +6,16 @@ const requireAuth = (req, res, next) => {
 
   // check json web token exists & is verified
   if (token) {
-    jwt.verify(token, 'thisissecret', (err, decodedToken) => {
+    jwt.verify(token, 'secretKey', (err, decodedToken) => {
+      console.log(decodedToken);
       if (err) {
-        res.json({notLoggedIn})
+        res.status(402).send('Unauthorized: Invalid token');
       } else {
-        console.log(decodedToken);
-        res.json({loggedIn});
+        next()
       }
     });
   } else {
-    res.json({notLoggedIn})
+    res.status(402).send('Unauthorized: Token dont exist');
   }
 }
 
