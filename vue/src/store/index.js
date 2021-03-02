@@ -9,6 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     userCheckAuth: false,
+    userFullName: localStorage.getItem('fullname') ? localStorage.getItem('fullname') : null,
     validationErrors: {}
   },
   mutations: {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
     },
     userCheckAuth(state,userIsLoggin) {
       state.userCheckAuth = userIsLoggin
+    },
+    userFullName(state,userFullName) {
+      state.userFullName = userFullName
     }
   },
   actions: {
@@ -32,12 +36,12 @@ export default new Vuex.Store({
             commit('responseError', errors);
           }
           if(user) {
+            const router = payload.router;
+            const fullName = `${user.firstName} ${user.lastName}`
             commit('userCheckAuth',true);
-            const unwatch = this.watch((state,getters)=>{
-              let router = payload.router;
-              router.push({path: '/'});
-            });
-            unwatch();
+            commit('userFullName', fullName);
+            router.push({path: '/'});
+            localStorage.setItem('fullname', fullName);
           }
         })
         .catch(function (error) {
@@ -56,12 +60,12 @@ export default new Vuex.Store({
             commit('responseError', errors);
           }
           if(user) {
+            const router = payload.router;
+            const fullName = `${user.firstName} ${user.lastName}`
             commit('userCheckAuth',true);
-            const unwatch = this.watch((state,getters)=>{
-              let router = payload.router;
-              router.push({path: '/'});
-            });
-            unwatch()
+            commit('userFullName', fullName);
+            router.push({path: '/'});
+            localStorage.setItem('fullname', fullName);
           }
         })
         .catch(function (error) {
@@ -75,7 +79,8 @@ export default new Vuex.Store({
         }).then(response=>{
             let router = payload.router;
             commit('userCheckAuth', false);
-            router.push('/login')
+            router.push('/login');
+            localStorage.removeItem('fullname')
           })
           .catch(error=>{
             console.log(error);
@@ -96,7 +101,6 @@ export default new Vuex.Store({
           router.push('/login');
           console.log(error)
           commit('userCheckAuth',false);
-
         })
       }  
     },
@@ -104,5 +108,8 @@ export default new Vuex.Store({
       isAuth: state => {
         return !!state.userCheckAuth
       },
+      userFullName: state => {
+        return state.userFullName
+      }
     }
 })

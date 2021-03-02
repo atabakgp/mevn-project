@@ -1,7 +1,7 @@
 <template lang='pug'>
   div.header.pa-6.blue
     nav.navigation
-      v-container.d-flex.justify-space-between
+      v-container.d-flex.justify-space-between.align-center.pa-0
         div(v-if="isLoggedIn")
           router-link(to="/" class="white--text") Home
           router-link(to="/profile" class="white--text") Profile
@@ -10,6 +10,7 @@
           router-link(to="/signup" class="white--text") Signup
         div.d-flex.align-center(v-else)
           div.white--text.mr-2
+          div.white--text.mr-4 Welcome {{ userFullName }}
           v-btn(@click="userLogout") Logout
 </template>
 
@@ -38,7 +39,7 @@ export default {
 
 <style scoped lang='scss'>
   header {
-    height: 40px;
+    height: 30px;
   }
   .navigation {
     a {
