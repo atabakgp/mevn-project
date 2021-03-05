@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex, { mapGetters } from 'vuex'
+import Vuex from 'vuex'
 import axios from 'axios'
 import VueCookies from 'vue-cookies'
 
@@ -61,7 +61,7 @@ export default new Vuex.Store({
           }
           if(user) {
             const router = payload.router;
-            const fullName = `${user.firstName} ${user.lastName}`
+            const fullName = `${user.firstName}`
             commit('userCheckAuth',true);
             commit('userFullName', fullName);
             router.push({path: '/'});
@@ -92,11 +92,9 @@ export default new Vuex.Store({
           withCredentials: true
         })
         .then((response)=> {
-          console.log(response.status)
           commit('userCheckAuth',true);
         })
         .catch(function (error) {
-          console.log(payload)
           let router = payload;
           router.push('/login');
           console.log(error)

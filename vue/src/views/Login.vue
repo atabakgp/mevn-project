@@ -10,8 +10,6 @@
       v-text-field(v-model="user.password" :error-messages="validationError.password" label="Password" type="password")
       v-btn(type="submit" @click="onSubmit" class="mt-10") Login
 </template>
-
-
 <script>
 
 export default {

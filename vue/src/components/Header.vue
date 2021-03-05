@@ -10,7 +10,7 @@
           router-link(to="/signup" class="white--text") Signup
         div.d-flex.align-center(v-else)
           div.white--text.mr-2
-          div.white--text.mr-4 Welcome {{ userFullName }}
+          div.white--text.mr-4 Welcome {{ userFullName.toUpperCase() }}
           v-btn(@click="userLogout") Logout
 </template>
 
