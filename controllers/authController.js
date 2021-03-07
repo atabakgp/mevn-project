@@ -145,11 +145,13 @@ const userLogout = (req, res) => {
   res.cookie('sessionid', '', {
     maxAge: 1
   });
-  res.json({login: false})
+  res.json({
+    login: false
+  })
 }
 
 // check token
-const checkToken = (req,res) => {
+const checkToken = (req, res) => {
   res.status(200).send('Succuess');
 }
 

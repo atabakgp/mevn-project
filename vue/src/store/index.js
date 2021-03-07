@@ -37,7 +37,7 @@ export default new Vuex.Store({
           }
           if(user) {
             const router = payload.router;
-            const fullName = `${user.firstName} ${user.lastName}`
+            const fullName = `${user.firstName}`
             commit('userCheckAuth',true);
             commit('userFullName', fullName);
             router.push({path: '/'});
