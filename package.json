@@ -22,7 +22,6 @@
     "morgan": "~1.9.1",
     "nodemon": "^2.0.7",
     "pug": "^3.0.0",
-    "validator": "^13.5.2",
-    "vue-server-renderer": "^2.6.12"
+    "validator": "^13.5.2"
   }
 }

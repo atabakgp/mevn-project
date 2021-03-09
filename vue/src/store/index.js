@@ -11,7 +11,6 @@ export default new Vuex.Store({
     userCheckAuth: localStorage.getItem('fullname') ? true : false,
     userFullName: localStorage.getItem('fullname') ? localStorage.getItem('fullname') : null,
     validationErrors: {},
-    loading: false
   },
   mutations: {
     responseError(state, errors) {
