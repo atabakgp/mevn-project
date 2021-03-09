@@ -12,5 +12,14 @@ export default {
   components: {
     Header,
   },
-};
+  computed: {
+    showLoading() {
+      return this.$store.getters.showLoading
+    },
+  },
+  mounted() {
+    let payload = this.$router;
+    this.$store.dispatch('userCheckAuth', payload)
+  }
+}
 </script>

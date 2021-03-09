@@ -4,7 +4,6 @@ import Home from '@/views/Home.vue'
 import Profile from '@/views/Profile.vue'
 import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
-import Cart from '@/views/Cart.vue'
 import Store from '@/store/index';
 
 
@@ -14,12 +13,15 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
   },
   {
     path: '/profile',
     name: 'Profile',
     component: Profile,
+    meta: {
+      requireAuth: true,
+    }
   },
   {
     path: '/login',
@@ -31,27 +33,23 @@ const routes = [
     name: 'Signup',
     component: Signup
   },
-  {
-    path: '/cart',
-    name: 'Cart',
-    component: Cart
-  }
 ]
 
 const router = new VueRouter({
   routes
 })
 
-
 router.beforeEach((to, from, next) => {
-  const auth = Store.getters.isAuth
-  if(!auth) {
-    if(to.name!=='Login' && to.name!=='Signup') {
-      Store.dispatch('userCheckAuth', router)
+  const isAuth = Store.getters.isAuth;
+  if(to.matched.some((record)=> record.meta.requireAuth)) {
+    if(isAuth) {
+      next() 
+    } else {
+      next('/login')
     }
   }
-  if(auth) {
-    if(to.name=='Login' || to.name=='Signup') {
+  if(isAuth) {
+    if(to.name=='Login' || to.name=="Signup") {
       next('/')
     }
   }

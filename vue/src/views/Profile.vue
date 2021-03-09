@@ -40,7 +40,7 @@ export default {
         })
         .then(res=> {
           const userName = res.data.user.firstName;
-          // this.$store.state.userFullName = userName
+          this.$store.state.userFullName = userName
           localStorage.setItem('fullname', userName)
         })
         .catch(err=> {

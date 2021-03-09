@@ -8,9 +8,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    userCheckAuth: false,
+    userCheckAuth: localStorage.getItem('fullname') ? true : false,
     userFullName: localStorage.getItem('fullname') ? localStorage.getItem('fullname') : null,
-    validationErrors: {}
+    validationErrors: {},
+    loading: false
   },
   mutations: {
     responseError(state, errors) {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     userFullName(state,userFullName) {
       state.userFullName = userFullName
+    },
+    showLoading(state,data) {
+      state.loading = data
     }
   },
   actions: {
@@ -37,7 +41,7 @@ export default new Vuex.Store({
           }
           if(user) {
             const router = payload.router;
-            const fullName = `${user.firstName}`
+            const fullName = user.firstName
             commit('userCheckAuth',true);
             commit('userFullName', fullName);
             router.push({path: '/'});
@@ -61,7 +65,7 @@ export default new Vuex.Store({
           }
           if(user) {
             const router = payload.router;
-            const fullName = `${user.firstName}`
+            const fullName = user.firstName
             commit('userCheckAuth',true);
             commit('userFullName', fullName);
             router.push({path: '/'});
@@ -87,27 +91,29 @@ export default new Vuex.Store({
           })
         },
       userCheckAuth({commit}, payload) {
+        commit('showLoading', true)
         axios
-        .get('http://localhost:3000/users/checkToken', {
-          withCredentials: true
-        })
-        .then((response)=> {
-          commit('userCheckAuth',true);
-        })
-        .catch(function (error) {
-          let router = payload;
-          router.push('/login');
-          console.log(error)
-          commit('userCheckAuth',false);
-        })
-      }  
-    },
+          .get('http://localhost:3000/users/checkToken', {
+            withCredentials: true
+          })
+          .then((response)=> {
+            commit('userCheckAuth',true);
+            commit('showLoading', false)
+          })
+          .catch(function (error) {
+            commit('userCheckAuth',false);
+          })
+        }  
+      },
     getters: {
       isAuth: state => {
         return !!state.userCheckAuth
       },
       userFullName: state => {
         return state.userFullName
+      },
+      showLoading: state=> {
+        return state.loading
       }
     }
 })

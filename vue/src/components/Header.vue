@@ -2,15 +2,14 @@
   div.header.pa-6.blue
     nav.navigation
       v-container.d-flex.justify-space-between.align-center.pa-0
-        div(v-if="isLoggedIn")
-          router-link(to="/" class="white--text") Home
-          router-link(to="/profile" class="white--text") Profile
+        router-link(to="/" class="white--text") Home
         div(v-if="!isLoggedIn")
           router-link(to="/login" class="white--text") Login
           router-link(to="/signup" class="white--text") Signup
         div.d-flex.align-center(v-else)
           div.white--text.mr-2
-          div.white--text.mr-4 Welcome {{ userFullName.toUpperCase() }}
+          div.white--text.mr-4 Hello {{ userFullName.toUpperCase() }} !
+          router-link(to="/profile" class="white--text") Profile
           v-btn(@click="userLogout") Logout
 </template>
 
