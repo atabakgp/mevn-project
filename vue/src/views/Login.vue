@@ -1,41 +1,62 @@
 <template lang="pug">
 .signup
   h1.text-center.mt-10 Login
-  div.text-center
+  .text-center
     span.mr-2 not a member?
     router-link(to="/signup") Register
   .form-wrapper.d-flex.justify-space-between.align-center
-    v-form(v-on:submit.prevent)
-      v-text-field(v-model="user.email" :error-messages="validationError.email" label="E-mail")
-      v-text-field(v-model="user.password" :error-messages="validationError.password" label="Password" type="password")
-      v-btn(type="submit" @click="onSubmit" class="mt-10") Login
+    v-form(v-on:submit.prevent, ref="form")
+      v-text-field(
+        v-model="user.email",
+        :rules="emailRules",
+        :error-messages="validationError.email",
+        label="E-mail"
+      )
+      v-text-field(
+        v-model="user.password",
+        :rules="passwordRules",
+        :error-messages="validationError.password",
+        :counter="6"
+        label="Password",
+        type="password"
+      )
+      v-btn.mt-10(type="submit", @click="onSubmit") Login
 </template>
 <script>
-
 export default {
   name: "login",
   data: () => ({
+    emailRules: [
+      (v) => !!v || "E-mail is required",
+      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+    ],
+    passwordRules: [
+      (v) => !!v || "Password is required",
+      (v) => (v && v.length >= 5) || "Password must be more than 6 characters",
+    ],
     user: {
       email: "",
-      password: ""
+      password: "",
     },
   }),
   computed: {
     validationError() {
-      return this.$store.state.validationErrors
+      return this.$store.state.validationErrors;
     },
   },
 
   methods: {
     onSubmit() {
-      const payload = {
-        user: this.user,
-        router: this.$router
+      if (this.$refs.form.validate()) {
+        const payload = {
+          user: this.user,
+          router: this.$router,
+        };
+        this.$store.dispatch("login", payload);
       }
-      this.$store.dispatch('login', payload);
-      },
     },
-  };
+  },
+};
 </script>
 
 

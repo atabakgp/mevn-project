@@ -5,31 +5,13 @@ const cookie = require('cookie-parser');
 // Handle errors 
 const handleRegisterErrors = (error) => {
   let errors = {
-    firstName: '',
-    lastName: '',
     email: '',
-    password: ''
   };
-
-  // incorrect email 
-  if (error.message === 'incorrect email') {
-    errors.email = 'This email is not registered'
-  }
-  // incorrect password 
-  if (error.message === 'incorrect password') {
-    errors.password = 'this password is incorrect'
-  }
 
   // duplicate error code 
   if (error.code == 11000) {
-    errors.email = 'that email is already registered';
+    errors.email = 'That email is already registered';
     return errors;
-  }
-  // validation errors
-  if (error.message.includes('users validation failed')) {
-    Object.values(error.errors).forEach(err => {
-      errors[err.properties.path] = err.properties.message;
-    });
   }
   return errors;
 }
@@ -50,17 +32,6 @@ const handleLoginErrors = (error) => {
     errors.password = 'This password is incorrect'
   }
 
-  // duplicate error code 
-  if (error.code == 11000) {
-    errors.email = 'that email is already registered';
-    return errors;
-  }
-  // validation errors
-  if (error.message.includes('users validation failed')) {
-    Object.values(error.errors).forEach(err => {
-      errors[err.properties.path] = err.properties.message;
-    });
-  }
   return errors;
 }
 
