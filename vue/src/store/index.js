@@ -22,9 +22,6 @@ export default new Vuex.Store({
     userFullName(state,userFullName) {
       state.userFullName = userFullName
     },
-    showLoading(state,data) {
-      state.loading = data
-    }
   },
   actions: {
     signup({commit},payload) {
@@ -90,14 +87,12 @@ export default new Vuex.Store({
           })
         },
       userCheckAuth({commit}, payload) {
-        commit('showLoading', true)
         axios
           .get('http://localhost:3000/users/checkToken', {
             withCredentials: true
           })
           .then((response)=> {
             commit('userCheckAuth',true);
-            commit('showLoading', false)
           })
           .catch(function (error) {
             commit('userCheckAuth',false);
@@ -111,8 +106,5 @@ export default new Vuex.Store({
       userFullName: state => {
         return state.userFullName
       },
-      showLoading: state=> {
-        return state.loading
-      }
     }
 })

@@ -4,6 +4,9 @@ import Home from '@/views/Home.vue'
 import Profile from '@/views/Profile.vue'
 import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
+import Orders from '@/views/Orders.vue'
+import ContactUs from '@/views/ContactUs.vue'
+import ChangePassword from '@/views/ChangePassword.vue'
 import Store from '@/store/index';
 
 
@@ -32,6 +35,30 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: Signup
+  },
+  {
+    path: '/orders',
+    name: 'Orders',
+    component: Orders,
+    meta: {
+      requireAuth: true,
+    }
+  },
+  {
+    path: '/change-password',
+    name: 'ChangePassword',
+    component: ChangePassword,
+    meta: {
+      requireAuth: true,
+    }
+  },
+  {
+    path: '/contact-us',
+    name: 'ContactUs',
+    component: ContactUs,
+    meta: {
+      requireAuth: true,
+    }
   },
 ]
 
