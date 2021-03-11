@@ -24,8 +24,8 @@ app.use(express.urlencoded({
   extended: false
 }));
 app.use(cookieParser());
-app.use('/users', authRouter);
-app.use('/', profileRouter);
+app.use('/user', authRouter);
+app.use('/user', profileRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

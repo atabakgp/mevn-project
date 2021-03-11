@@ -1,5 +1,5 @@
 <template lang='pug'>
-.sidebar.col-3
+v-card.sidebar.col-3
   .sidebar__item(v-for="(item, i) in items", :key="i")
     router-link(:to="item.route")
       v-icon(v-text="item.icon")
@@ -13,17 +13,17 @@ export default {
     items: [
       {
         text: "Orders",
-        icon: "mdi-folder",
+        icon: "mdi-order-bool-descending",
         route: "/orders",
       },
       {
         text: "Change password",
-        icon: "mdi-account-multiple",
+        icon: "mdi-lock",
         route: "/change-password",
       },
       {
         text: "Contact us",
-        icon: "mdi-star",
+        icon: "mdi-credit-card-wireless-outline",
         route: "/contact-us",
       },
     ],

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
 import VueCookies from 'vue-cookies'
+import api from '../config/axios';
 
 Vue.use(VueCookies)
 Vue.use(Vuex)
@@ -25,10 +25,8 @@ export default new Vuex.Store({
   },
   actions: {
     signup({commit},payload) {
-      axios
-        .post('http://localhost:3000/users/register', payload.user,{
-          withCredentials: true
-        })
+      api
+        .post('register', payload.user)
         .then((response)=> {
           const errors = response.data.errors;
           const user = response.data.user;
@@ -49,10 +47,8 @@ export default new Vuex.Store({
         })
       },
     login({commit}, payload) {
-      axios
-        .post('http://localhost:3000/users/login', payload.user, {
-          withCredentials: true
-        })
+      api
+        .post('login', payload.user)
         .then((response)=> {
           const errors = response.data.errors;
           const user = response.data.user;
@@ -73,10 +69,8 @@ export default new Vuex.Store({
         })
       },
     logout({commit},payload) {
-      axios
-        .get('http://localhost:3000/users/logout', {
-          withCredentials: true
-        }).then(response=>{
+      api
+        .get('logout').then(response=>{
             let router = payload.router;
             commit('userCheckAuth', false);
             router.push('/login');
@@ -87,18 +81,16 @@ export default new Vuex.Store({
           })
         },
       userCheckAuth({commit}, payload) {
-        axios
-          .get('http://localhost:3000/users/checkToken', {
-            withCredentials: true
-          })
-          .then((response)=> {
-            commit('userCheckAuth',true);
-          })
-          .catch(function (error) {
-            commit('userCheckAuth',false);
-          })
-        }  
-      },
+        api
+          .get('checkToken')
+            .then((response)=> {
+              commit('userCheckAuth',true);
+            })
+            .catch(function (error) {
+              commit('userCheckAuth',false);
+            })
+          }  
+        },
     getters: {
       isAuth: state => {
         return !!state.userCheckAuth
