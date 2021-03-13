@@ -22,12 +22,12 @@
             v-text-field(v-model="updatedUser.firstName", label="First Name")
             v-text-field(v-model="updatedUser.lastName", label="Last Name")
             v-text-field(v-model="updatedUser.email", label="Email")
-            v-btn.mt-10(type="submit", @click="updateUserData") Update
+            v-btn.mt-10(type="submit", @click="") Update
 </template>
 
 <script>
-import SideBar from "../components/SideBar";
-import axios from "axios";
+import SideBar from "../components/SideBar"
+import {getProfile} from '../config/axios'
 
 export default {
   components: {
@@ -43,27 +43,23 @@ export default {
   }),
   name: "Profile",
   methods: {
-    updateUserData() {
-      axios
-        .post("http://localhost:3000/user/profile", this.updatedUser, {
-          withCredentials: true,
-        })
-        .then((res) => {
-          const userName = res.data.user.firstName;
-          this.$store.state.userFullName = userName;
-          localStorage.setItem("fullname", userName);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+    // updateUserData() {
+    //   axios
+    //     .post("http://localhost:3000/user/profile", this.updatedUser, {
+    //       withCredentials: true,
+    //     })
+    //     .then((res) => {
+    //       const userName = res.data.user.firstName;
+    //       this.$store.state.userFullName = userName;
+    //       localStorage.setItem("fullname", userName);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
   },
   mounted() {
-    console.log("mounted");
-    axios
-      .get("http://localhost:3000/user/profile", {
-        withCredentials: true,
-      })
+    getProfile()
       .then((response) => {
         this.user = response.data.user;
       })

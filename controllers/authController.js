@@ -113,17 +113,23 @@ const userLogin = async (req, res) => {
 
 // user logout
 const userLogout = (req, res) => {
-  res.cookie('sessionid', '', {
-    maxAge: 1
-  });
-  res.json({
-    login: false
-  })
+  try {
+    res.cookie('sessionid', '', {
+      maxAge: 1
+    });
+    res.send('logout success')
+  } catch (error) {
+    res.send(error)
+  }
 }
 
 // check token
 const checkToken = (req, res) => {
-  res.status(200).send('Succuess');
+  try {
+    res.status(200).send('Succuess');
+  } catch (error) {
+    res.send(error)
+  }
 }
 
 module.exports = {
