@@ -63,7 +63,7 @@ const updateUserData = (req, res) => {
           user = user.toObject();
           delete user.password;
           delete user._id;
-          res.status(200).json({user});
+          res.status(200).json({message: 'Your profile is updated',user});
         }
       });
     } else {

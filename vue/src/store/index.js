@@ -22,6 +22,12 @@ export default new Vuex.Store({
     userFullName(state, userFullName) {
       state.userFullName = userFullName
     },
+    showSnackBar(state) {
+      state.snackBar.show = true
+      setTimeout(() => {
+        state.snackBar.show = false
+      }, 2000);
+    }
   },
   actions: {
     signup({
