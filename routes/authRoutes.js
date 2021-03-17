@@ -9,7 +9,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'vue/src/assets')
+        cb(null, 'vue/public/uploads/avatars')
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname)

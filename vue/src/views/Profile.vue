@@ -6,16 +6,22 @@
         div.col-md-9
           div.col-md-12
           h2.mb-4 Your Information
-          div.pa-2
-            span.mr-4
-              strong.mr-2 First Name:
-              span {{ user.firstName }}
-            span.mr-4
-              strong.mr-2 Last Name:
-              span {{ user.lastName }}
-            span.mr-4
-              strong.mr-2 Email:
-              span {{ user.email }}
+          div.d-flex.justify-space-between.align-center.pb-3
+            div.pa-2
+              div.mr-4
+                strong.mr-2 First Name:
+                span {{ user.firstName }}
+              div.mr-4
+                strong.mr-2 Last Name:
+                span {{ user.lastName }}
+              div.mr-4
+                strong.mr-2 Email:
+                span {{ user.email }}
+            div
+              v-avatar(size="150" v-if="user.avatar")
+                img(:src="publicPath + user.avatar")
+              v-avatar(size="150" v-else)
+                img(:src="defaultImgPath")
           v-divider    
           h2.pt-3 Edit your profile    
           div.form-wrapper.d-flex.justify-space-between.align-center
@@ -28,7 +34,6 @@
 
 <script>
 import SideBar from "../components/SideBar"
-
 import {getProfile, updateProfile} from '../config/axios'
 
 export default {
@@ -42,6 +47,9 @@ export default {
       lastName: "",
       email: "",
     },
+    publicPath: `${process.env.BASE_URL}uploads/avatars/`,
+    defaultImgPath: `${process.env.BASE_URL}uploads/avatars/default/user.png`,
+
   }),
   name: "Profile",
   methods: {

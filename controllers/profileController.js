@@ -20,7 +20,7 @@ const getUserData = (req, res) => {
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
-            avatar: user.avatar.data
+            avatar: user.avatar
           }
           res.json({
             user,

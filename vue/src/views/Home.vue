@@ -1,10 +1,15 @@
 <template lang='pug'>
-  div.home this is home page
+div
+  img(:src="`${publicPath}logo.png`")
 </template>
 
 <script>
-
 export default {
-  name: 'Home',
-}
+  name: "Home",
+  data() {
+    return {
+      publicPath: process.env.BASE_URL,
+    };
+  },
+};
 </script>

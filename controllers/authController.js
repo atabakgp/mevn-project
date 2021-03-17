@@ -50,8 +50,6 @@ const createToken = (id) => {
 
 // Create new user
 const userRegister = async (req, res) => {
-console.log('body',req.body)
-console.log('file',req.file)
 
   const {
     firstName,
@@ -59,7 +57,7 @@ console.log('file',req.file)
     email,
     password,
   } = req.body;
-  const avatar = req.file.path
+  const avatar = req.file ? req.file.filename : null
   try {
     const user = await User.create({
       firstName,
@@ -77,7 +75,8 @@ console.log('file',req.file)
         id: user._id,
         email: user.email,
         firstName: user.firstName,
-        lastName: user.lastName
+        lastName: user.lastName,
+        avatar: user.avatar
       }
     })
   } catch (error) {
