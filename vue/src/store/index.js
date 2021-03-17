@@ -97,7 +97,6 @@ export default new Vuex.Store({
         })
         .catch((error) => {
           commit('userCheckAuth', false);
-          console.log(error);
         })
     }
   },

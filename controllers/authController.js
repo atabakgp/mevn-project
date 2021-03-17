@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const cookie = require('cookie-parser');
+const path = require('path');
+const fs = require('fs');
 
 // Handle errors 
 const handleRegisterErrors = (error) => {
@@ -48,6 +50,8 @@ const createToken = (id) => {
 
 // Create new user
 const userRegister = async (req, res) => {
+console.log('body',req.body)
+console.log('file',req.file)
 
   const {
     firstName,
@@ -55,12 +59,14 @@ const userRegister = async (req, res) => {
     email,
     password,
   } = req.body;
+  const avatar = req.file.path
   try {
     const user = await User.create({
       firstName,
       lastName,
       email,
-      password
+      password,
+      avatar
     });
     const token = createToken(user._id);
     res.cookie('sessionid', token, {

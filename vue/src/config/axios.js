@@ -1,9 +1,15 @@
 import axios from 'axios'
-import { showSnackbar } from '../globalActions';
+import {
+  showSnackbar
+} from '../globalActions';
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000/user/',
   withCredentials: true,
+  headers: {
+    'Content-Type' : 'multipart/form-data'
+  },
+
 });
 
 
@@ -11,7 +17,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(function (response) {
   const method = response.config.method;
   const message = response.data.message
-  if(response.status = 200 && method == 'put') {
+  if (response.status = 200 && method == 'put') {
     showSnackbar(message);
   }
   return response;

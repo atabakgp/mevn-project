@@ -8,7 +8,7 @@
           router-link(to="/signup" class="white--text") Signup
         div.d-flex.align-center(v-else)
           div.white--text.mr-2
-          div.white--text.mr-4 Hello {{ userFullName.toUpperCase() }} !
+          div.white--text.mr-4 Hello {{ userFullName }}
           router-link(to="/profile" class="white--text") Profile
           v-btn(@click="userLogout") Logout
 </template>

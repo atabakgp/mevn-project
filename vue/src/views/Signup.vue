@@ -5,7 +5,7 @@
     span.mr-2 already a member?
     router-link(to="/login") Login
   .form-wrapper.d-flex.justify-space-between.align-center
-    v-form(v-on:submit.prevent, ref="form")
+    v-form(v-on:submit.prevent, ref="form" enctype="multipart/form-data")
       v-text-field(
         v-model="user.firstName",
         :rules="nameRules",
@@ -29,6 +29,12 @@
         label="Password",
         type="password"
       )
+      input(
+        type="file",
+        ref="file",
+        name="avatar"
+        @change="uploadAvatar"
+      )
       v-btn.mt-10(type="submit", @click="onSubmit") Submit
 </template>
 
@@ -51,6 +57,7 @@ export default {
       lastName: "",
       email: "",
       password: "",
+      avatar: ""
     },
   }),
   computed: {
@@ -62,13 +69,23 @@ export default {
   methods: {
     onSubmit() {
       if (this.$refs.form.validate()) {
+        let formData = new FormData();
+        formData.append('firstName', this.user.firstName)
+        formData.append('lastName', this.user.lastName)
+        formData.append('email', this.user.email)
+        formData.append('password', this.user.password)
+        formData.append('avatar', this.user.avatar)
+
         const payload = {
-          user: this.user,
+          user: formData,
           router: this.$router,
         };
         this.$store.dispatch("signup", payload);
       }
     },
+    uploadAvatar() {
+      this.user.avatar = this.$refs.file.files[0]
+    }
   },
 };
 </script>

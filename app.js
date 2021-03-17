@@ -1,9 +1,8 @@
 const createError = require('http-errors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
 const logger = require('morgan');
-const cors = require('cors');
+const cors = require('cors'); 
 
 const corsOptions = {
   credentials: true,
@@ -18,11 +17,11 @@ const profileRouter = require('./routes/profileRoutes');
 
 // middlewares
 app.use(logger('dev'));
-app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({
-  extended: false
+  extended: true
 }));
+
 app.use(cookieParser());
 app.use('/user', authRouter);
 app.use('/user', profileRouter);
