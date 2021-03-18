@@ -37,7 +37,7 @@ const routes = [
     component: Signup
   },
   {
-    path: '/orders',
+    path: '/orders/:id',
     name: 'Orders',
     component: Orders,
     meta: {

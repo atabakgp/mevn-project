@@ -1,9 +1,6 @@
 <template lang="pug">
-  .container
-    .change-password
-      .row
-        SideBar
-        div.col-md-6 Orders
+.change-password
+  .col-md-6 Orders
 </template>
 
 <script>

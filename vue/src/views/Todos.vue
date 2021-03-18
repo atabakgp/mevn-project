@@ -1,13 +1,17 @@
 <template lang="pug">
-.contact-us.col-md-9 Contact Us
+  .container
+    .todos
+      .row
+        SideBar
+        div.col-md-6 Todos
 </template>
 
 <script>
 import SideBar from "../components/SideBar";
 export default {
-  name: "ContactUs",
+  name: "ChangePassword",
   components: {
     SideBar,
   },
-};
+  };
 </script>

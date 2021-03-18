@@ -1,15 +1,14 @@
 <template lang='pug'>
-  div.header.pa-6.blue
+  div.header.pa-6
     nav.navigation
       v-container.d-flex.justify-space-between.align-center.pa-0
-        router-link(to="/" class="white--text") Home
+        router-link(to="/" class="black--text") LOGO
         div(v-if="!isLoggedIn")
-          router-link(to="/login" class="white--text") Login
-          router-link(to="/signup" class="white--text") Signup
+          router-link(to="/login" class="black--text") Login
+          router-link(to="/signup" class="black--text") Signup
         div.d-flex.align-center(v-else)
-          div.white--text.mr-2
-          div.white--text.mr-4 Hello {{ userFullName }}
-          router-link(to="/profile" class="white--text") Profile
+          div.black--text.mr-4 Hello {{ userFullName }}
+          router-link(to="/profile" class="black--text") Profile
           v-btn(@click="userLogout") Logout
 </template>
 
@@ -43,6 +42,7 @@ export default {
   .navigation {
     a {
       text-decoration: none;
+      color: #000;
       &:not(:last-child) {
         margin-right: 15px;
       }

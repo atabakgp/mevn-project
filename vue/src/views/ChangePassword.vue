@@ -1,17 +1,13 @@
 <template lang="pug">
-  .container
-    .change-password
-      .row
-        SideBar
-        div.col-md-6 Change password
+.change-password.col-md-9 Change password
 </template>
 
 <script>
-import SideBar from '../components/SideBar'
+import SideBar from "../components/SideBar";
 export default {
-  name: 'ChangePassword',
+  name: "ChangePassword",
   components: {
-    SideBar
-  }
-}
+    SideBar,
+  },
+};
 </script>

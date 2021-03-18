@@ -1,26 +1,27 @@
 <template lang="pug">
-.signup
-  h1.text-center.mt-10 Login
-  .text-center
-    span.mr-2 not a member?
-    router-link(to="/signup") Register
-  .form-wrapper.d-flex.justify-space-between.align-center
-    v-form(v-on:submit.prevent, ref="form")
-      v-text-field(
-        v-model="user.email",
-        :rules="emailRules",
-        :error-messages="validationError.email",
-        label="E-mail"
-      )
-      v-text-field(
-        v-model="user.password",
-        :rules="passwordRules",
-        :error-messages="validationError.password",
-        :counter="6"
-        label="Password",
-        type="password"
-      )
-      v-btn.mt-10(type="submit", @click="onSubmit") Login
+  transition(name="slide")
+    .signup
+      h1.text-center.mt-10 Login
+      .text-center
+        span.mr-2 not a member?
+        router-link(to="/signup") Register
+      .form-wrapper.d-flex.justify-space-between.align-center
+        v-form(v-on:submit.prevent, ref="form")
+          v-text-field(
+            v-model="user.email",
+            :rules="emailRules",
+            :error-messages="validationError.email",
+            label="E-mail"
+          )
+          v-text-field(
+            v-model="user.password",
+            :rules="passwordRules",
+            :error-messages="validationError.password",
+            :counter="6"
+            label="Password",
+            type="password"
+          )
+          v-btn.mt-10(type="submit", @click="onSubmit") Login
 </template>
 <script>
 export default {

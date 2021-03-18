@@ -1,40 +1,31 @@
 <template lang='pug'>
-  div
-    .container
-      .row
-        SideBar
-        div.col-md-9
-          div.col-md-12
-          h2.mb-4 Your Information
-          div.d-flex.justify-space-between.align-center.pb-3
-            div.pa-2
-              div.mr-4
-                strong.mr-2 First Name:
-                span {{ user.firstName }}
-              div.mr-4
-                strong.mr-2 Last Name:
-                span {{ user.lastName }}
-              div.mr-4
-                strong.mr-2 Email:
-                span {{ user.email }}
-            div
-              v-avatar(size="150" v-if="user.avatar")
-                img(:src="publicPath + user.avatar")
-              v-avatar(size="150" v-else)
-                img(:src="defaultImgPath")
-          v-divider    
-          h2.pt-3 Edit your profile    
-          div.form-wrapper.d-flex.justify-space-between.align-center
-            v-form.col-12(v-on:submit.prevent)
-              v-text-field(v-model="updatedUser.firstName", label="First Name")
-              v-text-field(v-model="updatedUser.lastName", label="Last Name")
-              v-text-field(v-model="updatedUser.email", label="Email")
-              v-btn.mt-10(type="submit", @click="updateUserData") Update
+.row.profile.mx-4.my-4
+  .col-md-7
+    v-card.px-4
+      .title.success.white--text.py-5.pl-3 Edit your profile
+      .form-wrapper.d-flex.justify-space-between.align-center
+        v-form.col-12(v-on:submit.prevent)
+          v-text-field(v-model="updatedUser.firstName", label="First Name")
+          v-text-field(v-model="updatedUser.lastName", label="Last Name")
+          v-text-field(v-model="updatedUser.email", label="Email")
+          v-btn.mt-10(type="submit", @click="updateUserData") Update
+  .col-md-5.text-center
+    v-card
+      div(v-if="user.avatar" class="profile__avatar")
+        img(:src="publicPath + user.avatar")
+      div(v-else class="profile__avatar")
+        img(:src="defaultImgPath")
+      v-divider 
+      .pa-5.text-center
+        .username.d-flex.justify-center
+          div.mr-2.mb-3 {{ user.firstName }}
+          div {{ user.lastName }}
+        span {{ user.email }}
 </template>
 
 <script>
-import SideBar from "../components/SideBar"
-import {getProfile, updateProfile} from '../config/axios'
+import SideBar from "../components/SideBar";
+import { getProfile, updateProfile } from "../config/axios";
 
 export default {
   components: {
@@ -49,7 +40,6 @@ export default {
     },
     publicPath: `${process.env.BASE_URL}uploads/avatars/`,
     defaultImgPath: `${process.env.BASE_URL}uploads/avatars/default/user.png`,
-
   }),
   name: "Profile",
   methods: {
@@ -79,3 +69,35 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.profile {
+  .title {
+    position: relative;
+    top: -30px;
+    border-radius: 5px;
+  }
+  &__avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: auto;
+    position: relative;
+    top: -30px;
+    margin-bottom: -10px;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+
+      }
+  }
+  .username {
+    div {
+      text-transform: capitalize;
+    }
+  }
+}
+</style>

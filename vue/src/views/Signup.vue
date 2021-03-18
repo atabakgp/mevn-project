@@ -1,41 +1,42 @@
 <template lang="pug">
-.signup
-  h1.text-center.mt-10 Sign Up
-  .text-center 
-    span.mr-2 already a member?
-    router-link(to="/login") Login
-  .form-wrapper.d-flex.justify-space-between.align-center
-    v-form(v-on:submit.prevent, ref="form" enctype="multipart/form-data")
-      v-text-field(
-        v-model="user.firstName",
-        :rules="nameRules",
-        label="First Name"
-      )
-      v-text-field(
-        v-model="user.lastName",
-        :rules="nameRules",
-        label="Last Name"
-      )
-      v-text-field(
-        v-model="user.email",
-        :rules="emailRules",
-        :error-messages="validationError.email",
-        label="E-mail"
-      )
-      v-text-field(
-        v-model="user.password",
-        :rules="passwordRules",
-        :counter="6",
-        label="Password",
-        type="password"
-      )
-      input(
-        type="file",
-        ref="file",
-        name="avatar"
-        @change="uploadAvatar"
-      )
-      v-btn.mt-10(type="submit", @click="onSubmit") Submit
+  transition(name="fade")
+    .signup
+      h1.text-center.mt-10 Sign Up
+      .text-center 
+        span.mr-2 already a member?
+        router-link(to="/login") Login
+      .form-wrapper.d-flex.justify-space-between.align-center
+        v-form(v-on:submit.prevent, ref="form" enctype="multipart/form-data")
+          v-text-field(
+            v-model="user.firstName",
+            :rules="nameRules",
+            label="First Name"
+          )
+          v-text-field(
+            v-model="user.lastName",
+            :rules="nameRules",
+            label="Last Name"
+          )
+          v-text-field(
+            v-model="user.email",
+            :rules="emailRules",
+            :error-messages="validationError.email",
+            label="E-mail"
+          )
+          v-text-field(
+            v-model="user.password",
+            :rules="passwordRules",
+            :counter="6",
+            label="Password",
+            type="password"
+          )
+          input(
+            type="file",
+            ref="file",
+            name="avatar"
+            @change="uploadAvatar"
+          )
+          v-btn.mt-10(type="submit", @click="onSubmit") Submit
 </template>
 
 
