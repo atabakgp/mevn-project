@@ -4,7 +4,7 @@ import {
 } from '../globalActions';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/user/',
+  baseURL: 'http://localhost:3000/',
   withCredentials: true,
 });
 
@@ -23,18 +23,22 @@ axiosInstance.interceptors.response.use(function (response) {
 });
 
 // user authentication
-const login = req => axiosInstance.post('login', req);
-const signup = req => axiosInstance.post('register', req);
-const checkToken = () => axiosInstance.get('checkToken');
-const logout = () => axiosInstance.get('logout');
+const login = req => axiosInstance.post('user/login', req);
+const signup = req => axiosInstance.post('user/register', req);
+const checkToken = () => axiosInstance.get('user/checkToken');
+const logout = () => axiosInstance.get('user/logout');
 
 // user profile
-export const getProfile = () => axiosInstance.get('profile')
-export const updateProfile = req => axiosInstance.put('profile', req)
+export const getProfile = () => axiosInstance.get('user/profile')
+export const updateProfile = req => axiosInstance.put('user/profile', req)
+
+// Orders
+export const getProducts = () => axiosInstance.get('products'); 
 
 export default {
   login,
   signup,
   checkToken,
   logout,
+  getProducts
 };

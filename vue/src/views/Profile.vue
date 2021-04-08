@@ -11,15 +11,12 @@
           v-btn.mt-10(type="submit", @click="updateUserData") Update
   .col-md-5.text-center
     v-card
-      div(v-if="user.avatar" class="profile__avatar")
-        img(:src="publicPath + user.avatar")
-      div(v-else class="profile__avatar")
-        img(:src="defaultImgPath")
+      div(class="profile__avatar")
+        img(:src="user.avatar ? publicPath + user.avatar : defaultImgPath")
       v-divider 
       .pa-5.text-center
         .username.d-flex.justify-center
-          div.mr-2.mb-3 {{ user.firstName }}
-          div {{ user.lastName }}
+          div {{ showName }}
         span {{ user.email }}
 </template>
 
@@ -53,6 +50,11 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+  },
+  computed: {
+    showName() {
+      return this.user.firstName +' '+ this.user.lastName
     },
   },
   mounted() {

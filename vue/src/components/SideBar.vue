@@ -12,9 +12,9 @@ export default {
   data: () => ({
     items: [
       {
-        text: "Orders",
+        text: "Posts",
         icon: "mdi-order-bool-descending",
-        route: "/orders",
+        route: "/posts",
       },
       {
         text: "Change password",

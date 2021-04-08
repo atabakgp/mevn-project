@@ -31,23 +31,11 @@ export default {
       this.snackbar = true;
     });
   },
-  watch: {
-    $route(to, from) {
-      console.log(this);
-    },
-  },
 };
 </script>
 
 <style lang="scss">
 .main {
   margin-left: 260px;
-}
-.fade-enter-active, .fade-leave-active {
-  transition: all 1s;
-}
-.fade-enter, .fade-leave-to /* .list-leave-active below version 2.1.8 */ {
-  opacity: 0;
-  transform: translateY(30px);
 }
 </style>

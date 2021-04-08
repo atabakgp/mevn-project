@@ -4,7 +4,7 @@ import Home from '@/views/Home.vue'
 import Profile from '@/views/Profile.vue'
 import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
-import Orders from '@/views/Orders.vue'
+import Posts from '@/views/Posts.vue'
 import ContactUs from '@/views/ContactUs.vue'
 import ChangePassword from '@/views/ChangePassword.vue'
 import Store from '@/store/index';
@@ -37,9 +37,9 @@ const routes = [
     component: Signup
   },
   {
-    path: '/orders/:id',
-    name: 'Orders',
-    component: Orders,
+    path: '/posts',
+    name: 'Posts',
+    component: Posts,
     meta: {
       requireAuth: true,
     }

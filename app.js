@@ -13,6 +13,7 @@ app.use(cors(corsOptions));
 
 const authRouter = require('./routes/authRoutes');
 const profileRouter = require('./routes/profileRoutes');
+const orderRouter = require('./routes/orderRoutes');
 
 
 // middlewares
@@ -25,6 +26,7 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use('/user', authRouter);
 app.use('/user', profileRouter);
+app.use('/', orderRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
