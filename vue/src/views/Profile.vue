@@ -11,7 +11,7 @@
           v-btn.mt-10(type="submit", @click="updateUserData") Update
   .col-md-5.text-center
     v-card
-      div(class="profile__avatar")
+      .profile__avatar
         img(:src="user.avatar ? publicPath + user.avatar : defaultImgPath")
       v-divider 
       .pa-5.text-center
@@ -21,13 +21,9 @@
 </template>
 
 <script>
-import SideBar from "../components/SideBar";
 import { getProfile, updateProfile } from "../config/axios";
 
 export default {
-  components: {
-    SideBar,
-  },
   data: () => ({
     user: {},
     updatedUser: {
@@ -54,7 +50,7 @@ export default {
   },
   computed: {
     showName() {
-      return this.user.firstName +' '+ this.user.lastName
+      return this.user.firstName + " " + this.user.lastName;
     },
   },
   mounted() {
@@ -88,13 +84,12 @@ export default {
     position: relative;
     top: -30px;
     margin-bottom: -10px;
-      img {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-
-      }
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
   }
   .username {
     div {

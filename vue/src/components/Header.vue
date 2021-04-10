@@ -2,7 +2,7 @@
   div.header.pa-6
     nav.navigation
       v-container.d-flex.justify-space-between.align-center.pa-0
-        router-link(to="/" class="black--text") LOGO
+        router-link(to="/" class="black--text") Products
         div(v-if="!isLoggedIn")
           router-link(to="/login" class="black--text") Login
           router-link(to="/signup" class="black--text") Signup

@@ -33,12 +33,14 @@ export const getProfile = () => axiosInstance.get('user/profile')
 export const updateProfile = req => axiosInstance.put('user/profile', req)
 
 // Orders
-export const getProducts = () => axiosInstance.get('products'); 
+export const getProducts = () => axiosInstance.get('products');
+export const getProductDetails = (id) => axiosInstance.get('product-details/' + id);
 
 export default {
   login,
   signup,
   checkToken,
   logout,
-  getProducts
+  getProducts,
+  getProductDetails
 };
