@@ -162,6 +162,6 @@ export default new Vuex.Store({
         totalQuantity += p.quantity
       })
       return totalQuantity;
-    }
+    },
   }
 })

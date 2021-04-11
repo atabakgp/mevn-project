@@ -17,6 +17,9 @@
         div.col-5 {{cartItem.productName}}
         div.col-2.text-center {{ cartItem.quantity }}
         div.col-2.text-center {{ cartItem.price }} $
+      div.col-12.d-flex.justify-space-between
+        strong Total Price
+        strong {{ totalPrice }} $
       hr
       div.mini-cart__links
         v-btn(type="button" @click="closeMiniCart" color="primary") Continue Shopping
@@ -35,6 +38,14 @@ export default {
     cartItems() {
       return this.$store.state.cart;
     },
+    totalPrice() {
+      let total = 0;
+      this.$store.state.cart.map(p=>{
+        total += p.price * p.quantity
+      })
+
+      return total;
+    }
   },
   methods: {
     closeMiniCart() {

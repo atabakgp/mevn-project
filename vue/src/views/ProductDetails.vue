@@ -9,7 +9,7 @@
         div
           strong ${{ singleProduct.price }}
         v-text-field(type="number", min="1", v-model="productQuantity")
-        v-btn(type="button", @click="addToCart") Add to cart
+        v-btn(type="button", @click="addToCart" color="primary") Add to cart
 </template>
 
 <script>
