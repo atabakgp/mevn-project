@@ -8,15 +8,16 @@
         h2 {{ singleProduct.name }}
         div
           strong ${{ singleProduct.price }}
-        v-text-field(type="number", value=0, v-model="productQuantity")
+        v-text-field(type="number", min="1", v-model="productQuantity")
         v-btn(type="button", @click="addToCart") Add to cart
 </template>
 
 <script>
+import EventBus from "../EventBus/index";
 export default {
   name: "ProductDetails",
   data: () => ({
-    productQuantity: 0,
+    productQuantity: 1,
   }),
   methods: {
     addToCart() {
@@ -24,14 +25,14 @@ export default {
       const productId = this.singleProduct._id;
       const productName = this.singleProduct.name;
       const quantity = parseInt(this.productQuantity);
-      const cartItem= {
+      const cartItem = {
         price,
         productId,
         quantity,
-        productName
-      }
+        productName,
+      };
       this.$store.dispatch("addProductToCart", cartItem);
-      this.$emit("showMiniCart")
+      EventBus.$emit("show_mini_cart");
     },
   },
   mounted() {

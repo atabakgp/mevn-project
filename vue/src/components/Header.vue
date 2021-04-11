@@ -1,15 +1,19 @@
 <template lang='pug'>
 .header.pa-6
   transition(name="fade")
-    component(is="MiniCart" v-show="showMiniCart" v-on:closeMiniCart="closeMini")
-    v-overlay(:value="overlay")
+    component(
+      is="MiniCart",
+      v-show="showMiniCart",
+      v-on:closeMiniCart="closeMini"
+    )
+  v-overlay(:value="showMiniCart")
   nav.navigation
     v-container.d-flex.justify-space-between.align-center.pa-0
       router-link.black--text(to="/") Products
-      div.d-flex.align-center
-        div.mr-4.cart(@click="showMiniCart=!showMiniCart")
+      .d-flex.align-center
+        .mr-4.cart(@click="showMiniCart = !showMiniCart")
           v-icon mdi-cart
-          div.badge {{ badgeQuantity }}
+          .badge {{ badgeQuantity }}
         div(v-if="!isLoggedIn")
           router-link.black--text(to="/login") Login
           router-link.black--text(to="/signup") Signup
@@ -21,15 +25,16 @@
 </template>
 
 <script>
-import MiniCart from './MiniCart';
+import MiniCart from "./MiniCart";
+import EventBus, {ACTIONS} from "../EventBus/index";
+
 export default {
   name: "Header",
   components: {
-    MiniCart
+    MiniCart,
   },
-  data: ()=> ({
+  data: () => ({
     showMiniCart: false,
-    overlay: false
   }),
   computed: {
     isLoggedIn() {
@@ -39,8 +44,8 @@ export default {
       return this.$store.getters.userFullName;
     },
     badgeQuantity() {
-      return this.$store.getters.badgeQuantity
-    }
+      return this.$store.getters.badgeQuantity;
+    },
   },
   methods: {
     userLogout() {
@@ -52,8 +57,12 @@ export default {
 
     closeMini() {
       this.showMiniCart = false;
-      this.overlay = true
-    }
+    },
+  },
+  created() {
+    EventBus.$on(ACTIONS.SHOW_MINI_CART, () => {
+      this.showMiniCart = true;
+    });
   },
 };
 </script>
@@ -88,10 +97,12 @@ header {
     line-height: 1.5;
   }
 }
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 </style>

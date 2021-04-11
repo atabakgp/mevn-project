@@ -13,7 +13,8 @@ export default new Vuex.Store({
     validationErrors: {},
     allProducts: [],
     singleProduct: null,
-    cart: []
+    cart: [],
+    totalPrice: 0
   },
   mutations: {
     responseError(state, errors) {
