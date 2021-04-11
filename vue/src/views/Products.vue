@@ -1,7 +1,7 @@
 <template lang="pug">
 .products
   .row
-    .products__item.col-md-3(v-for="product in products")
+    .products__item.col-md-3(v-for="product in allProducts")
       router-link(:to="'product-details/' + product._id")
         .px-2.pb-3
           img.products__item-img(:src="product.imgUrl")
@@ -10,21 +10,15 @@
 </template>
 
 <script>
-import api from "../config/axios";
 export default {
   name: "Products",
-  data: () => ({
-    products: [],
-  }),
   mounted() {
-    api
-      .getProducts()
-      .then((response) => {
-        this.products = response.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.$store.dispatch("getAllProducts");
+  },
+  computed: {
+    allProducts() {
+      return this.$store.state.allProducts;
+    },
   },
 };
 </script>

@@ -11,6 +11,9 @@ export default new Vuex.Store({
     userCheckAuth: localStorage.getItem('fullname') ? true : false,
     userFullName: localStorage.getItem('fullname') ? localStorage.getItem('fullname') : null,
     validationErrors: {},
+    allProducts: [],
+    singleProduct: null,
+    cart: []
   },
   mutations: {
     responseError(state, errors) {
@@ -22,6 +25,22 @@ export default new Vuex.Store({
     userFullName(state, userFullName) {
       state.userFullName = userFullName
     },
+    allProducts(state, products) {
+      state.allProducts = products;
+    },
+    singleProduct(state, singleProduct) {
+      state.singleProduct = singleProduct;
+    },
+    addToCart(state, cartItem) {
+      let productInCart = state.cart.find(item => {
+        return item.productId == cartItem.productId;
+      })
+      if (productInCart) {
+        productInCart.quantity += cartItem.quantity;
+        return
+      }
+      state.cart.push(cartItem);
+    }
   },
   actions: {
     signup({
@@ -61,7 +80,7 @@ export default new Vuex.Store({
           }
           if (user) {
             const router = payload.router;
-            const fullName = user.firstName
+            const fullName = user.firstName;
             commit('userCheckAuth', true);
             commit('userFullName', fullName);
             router.push({
@@ -98,6 +117,35 @@ export default new Vuex.Store({
         .catch((error) => {
           commit('userCheckAuth', false);
         })
+    },
+    getAllProducts({
+      commit
+    }) {
+      api
+        .getProducts()
+        .then((response) => {
+          commit('allProducts', response.data)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getProductDetails({
+      commit
+    }, id) {
+      api
+        .getProductDetails(id)
+        .then((response) => {
+          commit('singleProduct', response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    addProductToCart({
+      commit
+    }, cartItem) {
+      commit('addToCart', cartItem)
     }
   },
   getters: {
@@ -107,5 +155,12 @@ export default new Vuex.Store({
     userFullName: state => {
       return state.userFullName
     },
+    badgeQuantity: state => {
+      let totalQuantity = 0;
+      state.cart.map(p => {
+        totalQuantity += p.quantity
+      })
+      return totalQuantity;
+    }
   }
 })

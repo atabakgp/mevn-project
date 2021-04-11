@@ -1,37 +1,47 @@
 <template lang="pug">
 .container
-  .row.product-details
+  .row.product-details(v-if="singleProduct")
     .col-md-8
-      img(:src="product.imgUrl")
-      div {{ product.name }}
-      div {{ product.price }}
+      img(:src="singleProduct.imgUrl")
     .col-md-4
-      span Quantity 
-      v-text-field(type="number") 
-      v-btn(type="button") Add to cart
+      div
+        h2 {{ singleProduct.name }}
+        div
+          strong ${{ singleProduct.price }}
+        v-text-field(type="number", value=0, v-model="productQuantity")
+        v-btn(type="button", @click="addToCart") Add to cart
 </template>
 
 <script>
-import api from "../config/axios";
 export default {
   name: "ProductDetails",
   data: () => ({
-    product: {},
-    addedProduct: {
-
-    }
+    productQuantity: 0,
   }),
+  methods: {
+    addToCart() {
+      const price = this.singleProduct.price;
+      const productId = this.singleProduct._id;
+      const productName = this.singleProduct.name;
+      const quantity = parseInt(this.productQuantity);
+      const cartItem= {
+        price,
+        productId,
+        quantity,
+        productName
+      }
+      this.$store.dispatch("addProductToCart", cartItem);
+      this.$emit("showMiniCart")
+    },
+  },
   mounted() {
-    console.log(this.$route.params.id);
     const id = this.$route.params.id;
-    api
-      .getProductDetails(id)
-      .then((response) => {
-        this.product = response.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.$store.dispatch("getProductDetails", id);
+  },
+  computed: {
+    singleProduct() {
+      return this.$store.state.singleProduct;
+    },
   },
 };
 </script>
@@ -39,7 +49,7 @@ export default {
 <style lang="scss" scoped>
 .product-details {
   img {
-    width: 50%;
+    width: 100%;
     margin: auto;
   }
 }
